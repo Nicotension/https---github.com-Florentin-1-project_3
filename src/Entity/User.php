@@ -3,56 +3,123 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 150)]
-    private ?string $fname = null;
-
-    #[ORM\Column(length: 150)]
-    private ?string $lname = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 180)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 150)]
-    private ?string $phone_number = null;
-
-    #[ORM\Column(length: 150)]
-    private ?string $age = null;
-
+    /**
+     * @var list<string> The user roles
+     */
     #[ORM\Column]
-    private ?bool $status = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $address_city = null;
+    private array $roles = [];
 
     /**
-     * @var Collection<int, Orders>
+     * @var string The hashed password
      */
-    #[ORM\OneToMany(targetEntity: Orders::class, mappedBy: 'fk_user_id')]
-    private Collection $fk_product_id;
+    #[ORM\Column]
+    private ?string $password = null;
 
-    public function __construct()
-    {
-        $this->fk_product_id = new ArrayCollection();
-    }
+    #[ORM\Column(length: 170)]
+    private ?string $fname = null;
+
+    #[ORM\Column(length: 160)]
+    private ?string $lname = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $phone = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date_of_birth = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isBanned = null;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     *
+     * @return list<string>
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    /**
+     * @param list<string> $roles
+     */
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     public function getFname(): ?string
@@ -79,104 +146,38 @@ class User
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getPhone(): ?string
     {
-        return $this->email;
+        return $this->phone;
     }
 
-    public function setEmail(string $email): static
+    public function setPhone(string $phone): static
     {
-        $this->email = $email;
+        $this->phone = $phone;
 
         return $this;
     }
 
-    public function getPhoneNumber(): ?string
+    public function getDateOfBirth(): ?\DateTimeInterface
     {
-        return $this->phone_number;
+        return $this->date_of_birth;
     }
 
-    public function setPhoneNumber(string $phone_number): static
+    public function setDateOfBirth(\DateTimeInterface $date_of_birth): static
     {
-        $this->phone_number = $phone_number;
+        $this->date_of_birth = $date_of_birth;
 
         return $this;
     }
 
-    public function getAge(): ?string
+    public function isBanned(): ?bool
     {
-        return $this->age;
+        return $this->isBanned;
     }
 
-    public function setAge(string $age): static
+    public function setBanned(?bool $isBanned): static
     {
-        $this->age = $age;
-
-        return $this;
-    }
-
-    public function isStatus(): ?bool
-    {
-        return $this->status;
-    }
-
-    public function setStatus(bool $status): static
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getAddressCity(): ?string
-    {
-        return $this->address_city;
-    }
-
-    public function setAddressCity(string $address_city): static
-    {
-        $this->address_city = $address_city;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Orders>
-     */
-    public function getFkProductId(): Collection
-    {
-        return $this->fk_product_id;
-    }
-
-    public function addFkProductId(Orders $fkProductId): static
-    {
-        if (!$this->fk_product_id->contains($fkProductId)) {
-            $this->fk_product_id->add($fkProductId);
-            $fkProductId->setFkUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFkProductId(Orders $fkProductId): static
-    {
-        if ($this->fk_product_id->removeElement($fkProductId)) {
-            // set the owning side to null (unless already changed)
-            if ($fkProductId->getFkUserId() === $this) {
-                $fkProductId->setFkUserId(null);
-            }
-        }
+        $this->isBanned = $isBanned;
 
         return $this;
     }
