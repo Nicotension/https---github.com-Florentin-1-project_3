@@ -87,3 +87,4 @@ public function setFkProductId(?Product $product): self
 }    
 
 }
+
