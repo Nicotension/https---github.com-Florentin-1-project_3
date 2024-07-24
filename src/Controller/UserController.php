@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,10 +16,18 @@ use Symfony\Component\Routing\Attribute\Route;
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+    // public function index(UserRepository $userRepository): Response
+    // {
+    //     return $this->render('user/index.html.twig', [
+    //         'users' => $userRepository->findAll(),
+    //     ]);
+    // }
+
+    // #[Route('/', name: 'app_product_index', methods: ['GET'])]
+    public function productIndex(ProductRepository $productRepository): Response
     {
-        return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+        return $this->render('product/index.html.twig', [
+            'products' => $productRepository->findAll(),
         ]);
     }
 

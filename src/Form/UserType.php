@@ -15,11 +15,11 @@ class UserType extends AbstractType
             ->add('fname')
             ->add('lname')
             ->add('email')
-            ->add('phone_number')
-            ->add('age')
-            ->add('status')
+            ->add('phone')
+            ->add('date_of_birth')
+            ->add('is_banned')
             ->add('password')
-            ->add('address_city')
+            
         ;
     }
 

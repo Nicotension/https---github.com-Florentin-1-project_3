@@ -1,23 +1,31 @@
 <nav class="navbar">
-    <div class="navbar-container">
-        <a href="#" class="nav-logo">Home</a>
-        <div class="nav-items">
-            <div class="nav-item dropdown">
-                <button class="dropdown-button">Products</button>
-                <div class="dropdown-menu">
-                    <a href="#">Product 1</a>
-                    <a href="#">Product 2</a>
-                    <a href="#">Product 3</a>
-                </div>
-            </div>
-            <a href="#" class="nav-item">Register</a>
-            <a href="#" class="nav-item">Login</a>
-            <a href="#" class="nav-item cart">Cart</a>
-            <form class="search-form" action="#" method="get">
-                <input type="text" placeholder="Search..." class="search-input">
-                <button type="submit" class="search-button">Search</button>
-            </form>
-        </div>
-    </div>
+	<div class="navbar-container">
+		<a href="#" class="nav-logo">Home</a>
+		<div class="nav-items">
+			<div class="nav-item dropdown">
+				<button class="dropdown-button">Products</button>
+				<div class="dropdown-menu">
+					<a href="#">Product 1</a>
+					<a href="#">Product 2</a>
+					<a href="#">Product 3</a>
+				</div>
+			</div>
+			{% if is_granted("IS_AUTHENTICATED_FULLY")!= true %}
+
+				<a href="/register" class="nav-item">Register</a>
+				<a href="/login" class="nav-item">Login</a>
+			{% endif %}
+
+
+			<a href="#" class="nav-item cart">Cart</a>
+			<form class="search-form" action="#" method="get">
+				<input type="text" placeholder="Search..." class="search-input">
+				<button type="submit" class="search-button">Search</button>
+				{% if is_granted("IS_AUTHENTICATED_FULLY")%}
+					<a href="/logout" type="submit" class="search-button">Logout</a>
+				{% endif %}
+			</form>
+		</div>
+	</div>
 </nav>
 <div class="oline"></div>
