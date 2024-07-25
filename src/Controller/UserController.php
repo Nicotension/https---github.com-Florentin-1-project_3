@@ -16,6 +16,9 @@ use Symfony\Component\Routing\Attribute\Route;
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
+
+    //----TRYING TO SHOW THE PRODUCTS UNDER USER------//
+
     // public function index(UserRepository $userRepository): Response
     // {
     //     return $this->render('user/index.html.twig', [
@@ -28,6 +31,19 @@ class UserController extends AbstractController
     {
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
+        ]);
+    }
+
+
+    //MY PROFILE STILL IN PROGRESS //
+
+    #[Route('/profile{id}', name: 'app_user_profile', methods: ['GET'])]
+    public function userProfile(UserRepository $userRepository, $id, User $user): Response
+    {
+        $user =$this->getUser();
+    
+        return $this->render('user/index.html.twig', [
+    
         ]);
     }
 
@@ -54,6 +70,7 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
+       
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);

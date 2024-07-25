@@ -22,6 +22,7 @@
 				<input type="text" placeholder="Search..." class="search-input">
 				<button type="submit" class="search-button">Search</button>
 				{% if is_granted("IS_AUTHENTICATED_FULLY")%}
+					<a href="" type=" submit" class=" search-button">My Profile</a>
 					<a href="/logout" type="submit" class="search-button">Logout</a>
 				{% endif %}
 			</form>
