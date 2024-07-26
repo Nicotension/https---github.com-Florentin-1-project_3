@@ -2,9 +2,14 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\User;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+<<<<<<< HEAD
 use App\Service\FileUploader;
+=======
+use App\Repository\UserRepository;
+>>>>>>> cf6cef029495ec481e24a4fe683cf64106d460b7
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +29,7 @@ class ProductController extends AbstractController
 
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
     public function index(ProductRepository $productRepository): Response
-    {
+    {   
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
         ]);

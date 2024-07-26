@@ -24,3 +24,12 @@ services:
         arguments:
             $targetDirectory: '%picture_directory%'  # Ensure this parameter is defined in your parameters.yaml or .env file
 
+<<<<<<< HEAD
+=======
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+    App\Security\LoginFormAuthenticator:
+        arguments:
+            $security: '@security.helper'
+            $urlGenerator: '@router'
+>>>>>>> cf6cef029495ec481e24a4fe683cf64106d460b7

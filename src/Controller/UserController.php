@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,10 +16,34 @@ use Symfony\Component\Routing\Attribute\Route;
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+
+    //----TRYING TO SHOW THE PRODUCTS UNDER USER------//
+
+    // public function index(UserRepository $userRepository): Response
+    // {
+    //     return $this->render('user/index.html.twig', [
+    //         'users' => $userRepository->findAll(),
+    //     ]);
+    // }
+
+    // #[Route('/', name: 'app_product_index', methods: ['GET'])]
+    public function productIndex(ProductRepository $productRepository): Response
     {
+        return $this->render('product/index.html.twig', [
+            'products' => $productRepository->findAll(),
+        ]);
+    }
+
+
+    //MY PROFILE STILL IN PROGRESS //
+
+    #[Route('/profile{id}', name: 'app_user_profile', methods: ['GET'])]
+    public function userProfile(UserRepository $userRepository, $id, User $user): Response
+    {
+        $user =$this->getUser();
+    
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+    
         ]);
     }
 
@@ -45,6 +70,7 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
+       
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
