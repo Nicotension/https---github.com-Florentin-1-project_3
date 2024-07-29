@@ -28,11 +28,14 @@ class OrdersController extends AbstractController
         $order = new Orders();
         $form = $this->createForm(OrdersType::class, $order);
         $form->handleRequest($request);
-
+        $now = new \DateTime('now');
+        
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $entityManager->persist($order);
             $entityManager->flush();
-
+            $now = new \DateTime('now');
+            
             return $this->redirectToRoute('app_orders_index', [], Response::HTTP_SEE_OTHER);
         }
 

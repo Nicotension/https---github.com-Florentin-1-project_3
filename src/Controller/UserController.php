@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Orders;
+use App\Entity\Product;
 use App\Entity\User;
+use App\Form\OrdersType;
 use App\Form\UserType;
+use App\Repository\OrdersRepository;
 use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,38 +19,95 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/user')]
 class UserController extends AbstractController
 {
+ 
+
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
+    public function index(ProductRepository $productRepository): Response
+    {   
+       
 
-    //----TRYING TO SHOW THE PRODUCTS UNDER USER------//
-
-    // public function index(UserRepository $userRepository): Response
-    // {
-    //     return $this->render('user/index.html.twig', [
-    //         'users' => $userRepository->findAll(),
-    //     ]);
-    // }
-
-    // #[Route('/', name: 'app_product_index', methods: ['GET'])]
-    public function productIndex(ProductRepository $productRepository): Response
-    {
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
+           
         ]);
     }
 
-
-    //MY PROFILE STILL IN PROGRESS //
-
-    #[Route('/profile{id}', name: 'app_user_profile', methods: ['GET'])]
-    public function userProfile(UserRepository $userRepository, $id, User $user): Response
+    #[Route('/myroders', name: 'app_orders_index', methods: ['GET'])]
+    public function indexOrder(OrdersRepository $ordersRepository): Response
     {
-        $user =$this->getUser();
-    
-        return $this->render('user/index.html.twig', [
-    
+        return $this->render('orders/index.html.twig', [
+            'orders' => $ordersRepository->findAll(),
         ]);
     }
 
+
+
+    // #[Route('/order', name: 'app_orders_new', methods: ['GET', 'POST'])]
+    // public function addToCart(ProductRepository $productRepository, UserRepository $userRepository, $id, Product $product, Request $request , EntityManagerInterface $entityManager): Response
+    // {   
+    //     // $user =$this->getUser();
+    //     // $order = new Orders();
+    //     // $order->setUser($user);
+    //     // $order->setProduct($product);
+    //     $user =$this->getUser();
+    //     $order = new Orders();
+    //     $form = $this->createForm(OrdersType::class, $order);
+    //     $form->handleRequest($request);
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $entityManager->persist($order);
+    //         $entityManager->flush();
+
+    //         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    //     }
+
+    //     return $this->render('order/index.html.twig', [
+    //         'order' => $order,
+    //         'form' => $form,
+    //     ]);
+
+       
+    // }
+
+
+    #[Route('/order/{id}', name: 'app_orders', methods: ['GET','POST'])]
+    public function AddToCart(Request $request, EntityManagerInterface $entityManager, Product $product): Response
+    {
+        $order = new Orders();
+        $form = $this->createForm(OrdersType::class, $order);
+        $form->handleRequest($request);
+        $now = new \DateTime("now");
+        
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user =$this->getUser();
+            $order = new Orders();
+            $order->setUser($user);
+            $order->setProduct($product);
+            $now = new \DateTime("now");
+
+
+            $entityManager->persist($order);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_orders_new', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('orders/new.html.twig', [
+            'order' => $order,
+            'form' => $form,
+            
+        ]);
+    }
+
+
+
+
+
+
+
+
+       
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -67,10 +128,10 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
+    #[Route('/profile', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
-       
+        $user =$this->getUser();
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
@@ -79,13 +140,14 @@ class UserController extends AbstractController
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
+        
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+           $entityManager->flush();
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_homepage', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('user/edit.html.twig', [
@@ -105,3 +167,8 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 }
+
+
+
+
+

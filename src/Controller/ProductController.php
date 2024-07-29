@@ -2,11 +2,10 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Product;
-use App\Entity\User;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +22,7 @@ class ProductController extends AbstractController
             'products' => $productRepository->findAll(),
         ]);
     }
+
 
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response

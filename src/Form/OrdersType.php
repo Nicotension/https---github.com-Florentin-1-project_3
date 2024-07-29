@@ -12,11 +12,13 @@ class OrdersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('user_id')
-            ->add('product_id')
+            // ->add('user_id')
+            // ->add('product_id')
             ->add('date_time', null, [
                 'widget' => 'single_text',
             ])
+
+            
         ;
     }
 
