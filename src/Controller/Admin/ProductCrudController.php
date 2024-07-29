@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 
@@ -21,13 +22,21 @@ class ProductCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name'),
-            MoneyField::new('price')->setCurrency('USD'),
+            MoneyField::new('price')->setCurrency('EUR'),
             BooleanField::new('availability'),
             ImageField::new('picture')
                 ->setUploadDir('public/uploads/images')
                 ->setBasePath('uploads/images')
                 ->setRequired(false),
-            TextField::new('category'),
+            ChoiceField::new('category')
+                ->setChoices([
+                    'Puppets' => 'Puppets',
+                    'Outdoor' => 'Outdoor',
+                    'Infants' => 'Infants',
+                    'Boardgames' => 'Boardgames',
+                    'Crafts & Art' => 'Crafts & Art',
+                    'Constructions' => 'Constructions'
+                ]),
             TextEditorField::new('description'),
         ];
     }
