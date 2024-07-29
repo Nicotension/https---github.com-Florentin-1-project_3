@@ -32,7 +32,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/myroders', name: 'app_orders_index', methods: ['GET'])]
+    #[Route('/myorders', name: 'app_orders_index', methods: ['GET'])]
     public function indexOrder(OrdersRepository $ordersRepository): Response
     {
         return $this->render('orders/index.html.twig', [
@@ -76,28 +76,25 @@ class UserController extends AbstractController
         $order = new Orders();
         $form = $this->createForm(OrdersType::class, $order);
         $form->handleRequest($request);
-        $now = new \DateTime("now");
+        $now = new \DateTime('now');
+    
         
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        
             $user =$this->getUser();
             $order = new Orders();
             $order->setUser($user);
             $order->setProduct($product);
-            $now = new \DateTime("now");
+            $order->setDateTime($now);
 
 
             $entityManager->persist($order);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_orders_new', [], Response::HTTP_SEE_OTHER);
-        }
+            return $this->redirectToRoute('app_orders_index', [], Response::HTTP_SEE_OTHER);
+        
 
-        return $this->render('orders/new.html.twig', [
-            'order' => $order,
-            'form' => $form,
-            
-        ]);
+       
     }
 
 
@@ -134,6 +131,8 @@ class UserController extends AbstractController
         $user =$this->getUser();
         return $this->render('user/show.html.twig', [
             'user' => $user,
+            $user =$this->getUser(),
+            
         ]);
     }
 

@@ -25,16 +25,20 @@ class OrdersController extends AbstractController
     #[Route('/new', name: 'app_orders_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        // $order = new Orders();
+        // $form = $this->createForm(OrdersType::class, $order);
+        // $form->handleRequest($request);
         $order = new Orders();
+        $now = new \DateTime('now');
+        $order->setDateTime($now);
         $form = $this->createForm(OrdersType::class, $order);
         $form->handleRequest($request);
-        $now = new \DateTime('now');
         
         if ($form->isSubmitted() && $form->isValid()) {
             
             $entityManager->persist($order);
             $entityManager->flush();
-            $now = new \DateTime('now');
+            // $now = new \DateTime('now');
             
             return $this->redirectToRoute('app_orders_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -50,6 +54,8 @@ class OrdersController extends AbstractController
     {
         return $this->render('orders/show.html.twig', [
             'order' => $order,
+            'user' => $order->getUser(),
+            'product' => $order->getProduct()
         ]);
     }
 

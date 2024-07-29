@@ -9,22 +9,24 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Id</th>
+
 				<th>Fname</th>
 				<th>Lname</th>
 				<th>Email</th>
-				<th>Phone_number</th>
+				<th>Phone Number</th>
+
 
 			</tr>
 		</thead>
 		<tbody>
 			{% for user in users %}
 				<tr>
-					<td>{{ user.id }}</td>
+
 					<td>{{ user.fname }}</td>
 					<td>{{ user.lname }}</td>
 					<td>{{ user.email }}</td>
 					<td>{{ user.phone }}</td>
+
 
 					<a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
 					<a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
@@ -36,4 +38,4 @@
 	<tr>
 		<td colspan="10">no records found</td>
 	</tr>
-{% endfor %}</tbody></table><a href="{{ path('app_user_new') }}">Create new</a>{% endblock %}
+{% endfor %}{% endblock %}

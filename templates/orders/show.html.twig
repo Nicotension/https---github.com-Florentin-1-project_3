@@ -1,34 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Orders{% endblock %}
+{% block title %}Orders
+{% endblock %}
 
 {% block body %}
-    <h1>Orders</h1>
+	<h1>Orders</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ order.id }}</td>
-            </tr>
-            <tr>
-                <th>User_id</th>
-                <td>{{ order.userId }}</td>
-            </tr>
-            <tr>
-                <th>Product_id</th>
-                <td>{{ order.productId }}</td>
-            </tr>
-            <tr>
-                <th>Date_time</th>
-                <td>{{ order.dateTime ? order.dateTime|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
 
-    <a href="{{ path('app_orders_index') }}">back to list</a>
 
-    <a href="{{ path('app_orders_edit', {'id': order.id}) }}">edit</a>
+			<tr>
+				<th></th>
+				<td><img src="{{product.picture}}"></td>
+			</tr>
 
-    {{ include('orders/_delete_form.html.twig') }}
+			<tr>
+				<th>Id</th>
+				<td>{{ order.id }}</td>
+			</tr>
+
+			<tr>
+				<th>Product Name</th>
+				<td>{{product.name}}</td>
+			</tr>
+
+			<tr>
+				<th>Description</th>
+				<td>{{product.description}}</td>
+			</tr>
+
+			<tr>
+				<th>Price</th>
+				<td>{{product.price}}</td>
+			</tr>
+
+
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_orders_index') }}">back to list</a>
+
+	{{ include('orders/_delete_form.html.twig') }}
 {% endblock %}

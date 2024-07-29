@@ -14,11 +14,11 @@ class UserType extends AbstractType
         $builder
             ->add('fname')
             ->add('lname')
-            ->add('email')
+            // ->add('email')
             ->add('phone')
             ->add('date_of_birth')
-            ->add('is_banned')
-            ->add('password')
+            // ->add('is_banned')
+            // ->add('password')
             
         ;
     }

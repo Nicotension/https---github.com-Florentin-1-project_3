@@ -37,7 +37,7 @@
 			{% endif %}
 
 
-			<a href="#" class="nav-item cart">Cart</a>
+			<a href="{{ path ('app_orders_index')}}" class="nav-item cart">Cart</a>
 			<form class="search-form" action="#" method="get">
 				<input type="text" placeholder="Search..." class="search-input">
 				<button type="submit" class="search-button">Search</button>
@@ -48,9 +48,8 @@
 						<button class="dropdown-button">My Profile</button>
 						<div class="dropdown-menu">
 							<a href="{{ path('app_user_show') }}" type=" submit" class=" search-button">View Profile</a>
-							<a href="{{ path ('app_orders_index')}}">My Orders</a>
-							<a href="#">Product 2</a>
-							<a href="#">Product 3</a>
+							<a href="#">My Orders</a>
+
 						</div>
 
 					</div>
