@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Orders;
+use App\Entity\Product;
+use App\Entity\User;
 use App\Form\OrdersType;
 use App\Repository\OrdersRepository;
+use App\Repository\ProductRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,10 +19,14 @@ use Symfony\Component\Routing\Attribute\Route;
 class OrdersController extends AbstractController
 {
     #[Route('/', name: 'app_orders_index', methods: ['GET'])]
-    public function index(OrdersRepository $ordersRepository): Response
+    public function index(OrdersRepository $ordersRepository, Orders $order, User $user, Product $product, ProductRepository $productRepository, UserRepository $userRepository): Response
     {
         return $this->render('orders/index.html.twig', [
             'orders' => $ordersRepository->findAll(),
+            // 'user' => $userRepository->getUser(),
+            // 'product' => $productRepository->getProduct(),
+            // 'user' => $order->getUser(),
+            // 'product' => $order->getProduct()
         ]);
     }
 
@@ -55,7 +63,8 @@ class OrdersController extends AbstractController
         return $this->render('orders/show.html.twig', [
             'order' => $order,
             'user' => $order->getUser(),
-            'product' => $order->getProduct()
+            'product' => $order->getProduct(),
+           
         ]);
     }
 
