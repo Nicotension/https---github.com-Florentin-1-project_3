@@ -37,7 +37,7 @@ class RegistrationController extends AbstractController
 
         $email = (new Email())
 
-        ->from('themailaddress@.com') 
+        ->from('ijewerenicholas@gmail.com') 
         ->to($user->getEmail())
         ->priority(Email::PRIORITY_HIGH)
         ->subject('Welcome email!')
@@ -51,10 +51,9 @@ class RegistrationController extends AbstractController
             
 
            }
-         }
-     }
-//         return $this->render('registration/register.html.twig', [
-//             'registrationForm' => $form,
-//         ]);
-//     }
-// }
+     
+         return $this->render('registration/register.html.twig', [
+             'registrationForm' => $form,
+         ]);
+    }
+}

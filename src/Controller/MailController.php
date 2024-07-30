@@ -16,7 +16,7 @@ class MailController extends AbstractController
     public function index(MailerInterface $mailer): Response
     {
         $email = (new Email())
-           ->from('theemailaddress@.com')
+           ->from('ijewerenicholas@gmail.com')
            ->to('ijewerenicholas@gmail.com')
            ->priority(Email::PRIORITY_HIGH)
            ->subject('Time for Symfony Mailer!')
@@ -25,11 +25,7 @@ class MailController extends AbstractController
 
            $mailer->send($email);
            return new Response("Email sent successfully!");
-########        
-        // return $this->render('mail/index.html.twig', [
-        //     'controller_name' => 'MailController',
-        // ]);
-########        
+       
     }
 }
 
