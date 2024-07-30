@@ -91,7 +91,7 @@ class UserController extends AbstractController
             $entityManager->persist($order);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_orders_show', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_orders_index', [], Response::HTTP_SEE_OTHER);
         
 
        
