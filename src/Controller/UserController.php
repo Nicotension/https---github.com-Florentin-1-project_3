@@ -32,13 +32,13 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/myorders', name: 'app_orders_index', methods: ['GET'])]
-    public function indexOrder(OrdersRepository $ordersRepository): Response
-    {
-        return $this->render('orders/index.html.twig', [
-            'orders' => $ordersRepository->findAll(),
-        ]);
-    }
+    // #[Route('/myorders', name: 'app_orders_index', methods: ['GET'])]
+    // public function indexOrder(OrdersRepository $ordersRepository): Response
+    // {
+    //     return $this->render('orders/index.html.twig', [
+    //         'orders' => $ordersRepository->findAll(),
+    //     ]);
+    // }
 
 
 
@@ -91,7 +91,7 @@ class UserController extends AbstractController
             $entityManager->persist($order);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_orders_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_orders_show', [], Response::HTTP_SEE_OTHER);
         
 
        

@@ -43,6 +43,7 @@
 						{% if is_granted('ROLE_USER')%}
 
 							<a href="{{ path('app_orders', {'id': product.id}) }}">Add to Cart</a>
+
 						{% endif %}
 
 					</td>
