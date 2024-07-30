@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -32,13 +34,27 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+
+        $email = (new Email())
+
+        ->from('themailaddress@.com') 
+        ->to($user->getEmail())
+        ->priority(Email::PRIORITY_HIGH)
+        ->subject('Welcome email!')
+        ->text('Sending emails is fun again!')
+        ->html('<h1>Welcome to our dear customer!</h1>');
+
+           $mailer->send($email);
+
+           return $this->redirectToRoute('app_login');
             // do anything else you need here, like send an email
+            
 
-            return $this->redirectToRoute('app_login');
-        }
-
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form,
-        ]);
-    }
-}
+           }
+         }
+     }
+//         return $this->render('registration/register.html.twig', [
+//             'registrationForm' => $form,
+//         ]);
+//     }
+// }
