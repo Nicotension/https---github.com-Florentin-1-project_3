@@ -40,6 +40,9 @@ class Product
     #[ORM\OneToMany(targetEntity: Orders::class, mappedBy: 'fk_product_id')]
     private Collection $orders;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $discount = null;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -148,6 +151,18 @@ class Product
                 $order->setFkProductId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDiscount(): ?int
+    {
+        return $this->discount;
+    }
+
+    public function setDiscount(?int $discount): static
+    {
+        $this->discount = $discount;
 
         return $this;
     }
