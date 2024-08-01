@@ -21,12 +21,20 @@ class OrdersController extends AbstractController
     #[Route('/', name: 'app_orders_index', methods: ['GET'])]
     public function index(OrdersRepository $ordersRepository, Orders $order, User $user, Product $product, ProductRepository $productRepository, UserRepository $userRepository): Response
     {
+        
+
+        $orders = $ordersRepository->findAll();
+        $products = [];
+           foreach ($orders as $order) {
+                array_push($products, $order->getProduct());
+
+            };
+           
         return $this->render('orders/index.html.twig', [
             'orders' => $ordersRepository->findAll(),
-            // 'user' => $userRepository->getUser(),
-            // 'product' => $productRepository->getProduct(),
-            // 'user' => $order->getUser(),
-            // 'product' => $order->getProduct()
+            'products' => $products
+            
+            
         ]);
     }
 
