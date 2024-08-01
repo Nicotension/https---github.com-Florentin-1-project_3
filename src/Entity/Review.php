@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\ReviewRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReviewRepository::class)]
@@ -13,18 +13,20 @@ class Review
     #[ORM\Column]
     private ?int $id = null;
 
-   
-
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $fk_user_id = null;
+    #[ORM\JoinColumn(name: "fk_user_id_id", nullable: false)] // Adjust column name
+    private ?User $user = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Product $fk_product_id = null;
+    #[ORM\JoinColumn(name: "fk_product_id_id", nullable: false)] // Adjust column name
+    private ?Product $product = null;
+
+
+
+
 
     public function getId(): ?int
     {
@@ -45,27 +47,31 @@ class Review
         return $this;
     }
 
-    public function getFkUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->fk_user_id;
+        return $this->user;
     }
 
-    public function setFkUserId(?User $fk_user_id): static
+    public function setUser(?User $user): static
     {
-        $this->fk_user_id = $fk_user_id;
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getFkProductId(): ?Product
+    public function getProduct(): ?Product
     {
-        return $this->fk_product_id;
+        return $this->product;
     }
 
-    public function setFkProductId(?Product $fk_product_id): static
+    public function setProduct(?Product $product): static
     {
-        $this->fk_product_id = $fk_product_id;
+        $this->product = $product;
 
         return $this;
     }
+
+   
+
+   
 }

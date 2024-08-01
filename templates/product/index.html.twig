@@ -43,6 +43,9 @@
 						{% if is_granted('ROLE_USER')%}
 
 							<a href="{{ path('app_orders', {'id': product.id}) }}">Add to Cart</a>
+							<a href="{{ path('app_reviews', {'id': product.id}) }}">Add a review</a>
+
+							<a href="{{ path('app_questions', {'id': product.id}) }}">Ask a question</a>
 
 						{% endif %}
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\QuestionsRepository;
@@ -46,12 +45,12 @@ class Questions
         return $this;
     }
 
-    public function getFkProductId(): ?Product
+    public function getProduct(): ?Product
     {
         return $this->fk_product_id;
     }
 
-    public function setFkProductId(?Product $fk_product_id): static
+    public function setProduct(?Product $fk_product_id): static
     {
         $this->fk_product_id = $fk_product_id;
 
