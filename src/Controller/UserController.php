@@ -4,8 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Orders;
 use App\Entity\Product;
+use App\Entity\Questions;
+use App\Entity\Review;
 use App\Entity\User;
 use App\Form\OrdersType;
+use App\Form\QuestionsType;
+use App\Form\ReviewType;
 use App\Form\UserType;
 use App\Repository\OrdersRepository;
 use App\Repository\ProductRepository;
@@ -172,6 +176,52 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+    #[Route('/question/{id}', name: 'app_questions', methods: ['GET','POST'])]
+    public function addQuestion(Request $request, EntityManagerInterface $entityManager, Product $product): Response
+    {
+        $question = new Questions();
+        $form = $this->createForm(QuestionsType::class, $question);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $question->setUser($user);
+            $question->setProduct($product);
+
+            $entityManager->persist($question);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_questions_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('questions/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+    #[Route('/review/{id}', name: 'app_reviews', methods: ['GET','POST'])]
+    public function addReview(Request $request, EntityManagerInterface $entityManager, Product $product): Response
+    {
+        $review = new Review();
+        $form = $this->createForm(ReviewType::class, $review);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $review->setUser($user);
+            $review->setProduct($product);
+
+            $entityManager->persist($review);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_orders_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('review/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
 
