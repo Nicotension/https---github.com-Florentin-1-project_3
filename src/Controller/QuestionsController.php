@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Questions;
 use App\Form\QuestionsType;
+use App\Repository\ProductRepository;
 use App\Repository\QuestionsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -78,4 +79,5 @@ class QuestionsController extends AbstractController
 
         return $this->redirectToRoute('app_questions_index', [], Response::HTTP_SEE_OTHER);
     }
+    
 }
