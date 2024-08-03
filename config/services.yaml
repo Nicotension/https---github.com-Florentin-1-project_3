@@ -21,3 +21,7 @@ services:
     arguments:
       $security: "@security.helper"
       $urlGenerator: "@router"
+
+  App\Service\FileUploader:
+    arguments:
+      $targetDirectory: "%picture_directory%"

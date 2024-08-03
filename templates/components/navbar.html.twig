@@ -1,3 +1,4 @@
+
 <nav class="navbar">
 	<div class="navbar-container">
 		<a href="{{ path ('app_homepage')}}" class="nav-logo">Home</a>
@@ -38,9 +39,10 @@
 
 
 			<a href="{{ path ('app_orders_index')}}" class="nav-item cart">Cart</a>
-			<form class="search-form" action="#" method="get">
-				<input type="text" placeholder="Search..." class="search-input">
+			<form class="search-form" action="{{ path('product_search') }}" method="get" data-controller="search">
+				<input type="text" placeholder="Search..." class="search-input" name="query" id="search-query" data-action="input->search#update">
 				<button type="submit" class="search-button">Search</button>
+			</form>
 
 				{% if is_granted("IS_AUTHENTICATED_FULLY")%}
 
@@ -59,7 +61,7 @@
 				{% endif %}
 
 
-			</form>
+			
 		</div>
 	</div>
 </nav>

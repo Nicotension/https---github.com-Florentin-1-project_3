@@ -9,6 +9,8 @@
 	<table class="table">
 		<tbody>
 
+			<td><img width="200" src="{{ asset('uploads/' ~ user.picture ) }}"/></td>
+
 			<tr>
 				<th>Fname</th>
 				<td>{{ user.fname }}</td>
@@ -27,9 +29,9 @@
 			</tr>
 
 			{# <tr>
-							<th>Birthday</th>
-							<td>{{ user.date_of_birth }}</td>
-						</tr> #}
+																<th>Birthday</th>
+																<td>{{ user.date_of_birth }}</td>
+															</tr> #}
 
 		</tbody>
 	</table>
