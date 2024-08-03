@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product Catalog
+{% endblock %}
+
+{% block body %}
+
+        <h1 class="heading" style="text-align: center; color: green">Welcome to our catalog</h1>
+	
+        <div class="example-wrapper">
+            
+			{% for product in products %}
+			
+                    <div class="container">        
+                            <div class="card" style="width: 18rem; margin-bottom: 20px;">
+                                <img width="150" src="{{ product.picture ? asset('uploads/' ~ product.picture) : 'https://via.placeholder.com/150' }}" class="card-img-top" alt="....">
+                                <div class="card-body">
+                                    <div class="catalog-item">
+                                        <h5>{{ product.name }}</h5>
+                                        <p>{{ product.description }}</p>
+                                        <h6>{{ product.availability }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+</div>
+
+  {% endfor %}
+       
+        {% endblock %}
+	{# </tr>
+{% endfor %}</tbody></table>{% if is_granted('ROLE_ADMIN')%}<a href="{{ path('app_product_new') }}">Create new</a>{% endif %}{% endblock %} #}
+
+
+
+
+{# {% extends 'base.html.twig' %} #}
+
+{# {% block title %}Hello Product Catalog!{% endblock %}
+
+{% block body %}
+    <h1 class="heading" style="text-align: center; color: green">Welcome to our catalog</h1>
+    <div class="example-wrapper">
+        <div class="catalog">
+            <div class="container">        
+                {% for item in items %}
+                    <div class="card" style="width: 18rem; margin-bottom: 20px;">
+                        <img width="150" src="{{ item.image ? asset('uploads/images/' ~ item.image) : 'https://via.placeholder.com/150' }}" class="card-img-top" alt="{{ item.title }}">
+                        <div class="card-body">
+                            <div class="catalog-item">
+                                <h2>{{ item.title }}</h2>
+                                <p>{{ item.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %} #}
+
+{# ############### #}
+{# {% extends 'base.html.twig' %}
+{% block title %}Hello Product Catalog!{% endblock %}
+{% block body %}
+
+<h1 class="heading" style="text-align: center; color: green">Welcome to our catalog</h1>
+    <div class="example-wrapper">
+        <div class="catalog">
+            {# <div class="row row-cols-4"> #}
+            {# <div class="container">        
+        {% for item in items %}
+        <div class="card" style="width: 18rem;">
+               <img width="150" src="{{ asset('uploads/images' ~ item.image ) }}" class="card-img-top" alt="...">
+            {# <img width="150" src="{{ asset('uploads/' ~ item.picture ) }}" class="card-img-top" alt="..."> #}
+            {# <div class="card-body">
+            <div class="catalog-item">
+                {# <img src="{{ asset(item.image) }}" alt="{{ item.title }}"> #}
+                {# <h2>{{ item.title }}</h2>
+                <p>{{ item.description }}</p>
+                </div>
+              </div>
+            </div> 
+ </div>
+</div> 
+</div>
+</div> 
+{% endfor %}
+{% endblock %} #} 
+{# ################ #}
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Hello CatalogController!{% endblock %}
+
+{% block body %} #}
+
+{# <div class="example-wrapper">
+    <h1>Welcome to our product catalog</h1>
+
+    <div class="container">
+        <div class="row row-cols-4">
+            {# {% for product in products %} #}
+            {# <div>
+            <div class="card" style="width: 18rem;">
+                <img width="150" src="{{ asset('uploads/' ~ product.picture ) }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{ product.name }}</h5>
+                  <p class="card-text">{{ product.price }}</p>
+                  <p class="card-text">{{ product.availability }}</p>
+                  <p class="card-text">{{ product.category }}</p>
+                  <p class="card-text">{{ product.description }}</p> #}
+                  {# <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
+                  <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a> #}
+                {# </div>
+              </div>
+            </div> #}
+        {# {% else %}
+                <div>no records found</div>
+        {% endfor %} #}
+{# </div>
+</div> #} 
+    {# <a href="{{ path('app_product_new') }}">Create new</a>
+
+{% endblock %} #}
+   {# /* <style>
+        .catalog-item {
+            margin-bottom: 20px;
+        }
+        .catalog-item img {
+            max-width: 100%;
+            height: auto;
+        }
+        .catalog-item h2 {
+            margin: 10px 0 5px;
+        }
+    </style> */ #}
+{# </head>
+<body> #}
