@@ -7,13 +7,9 @@
 {% block body %}
 	<h1>Product Catalog</h1>
 
-	<br>
-
-	<h3>Please
-		<a href="/login">log in</a>
-		to purchase items.</h3>
-
-	<br>
+	{% if is_granted('ROLE_ADMIN') %}
+		<a href="{{ path('app_product_new') }}">Create new</a>
+	{% endif %}
 
 	<table class="table">
 		<thead>
@@ -21,23 +17,32 @@
 				{# <th>Id</th> #}
 				<th>Name</th>
 				<th>Price</th>
+				<th>Availability</th>
 				<th>Picture</th>
 				<th>Category</th>
-
-
+				<th>Description</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
-			{% for product in products %}
+			{% for product in product %}
 				<tr>
 					{# <td>{{ product.id }}</td> #}
 					<td>{{ product.name }}</td>
 					<td>{{ product.price }}</td>
-
+					<td>{{ product.availability }}</td>
 					<td><img src="{{ asset('uploads/' ~ product.picture) }}" alt="{{ product.name }}" width="150"></td>
 					<td>{{ product.category }}</td>
-
-					<td></td>
+					<td>{{ product.description }}</td>
+					<td>
+						{% if is_granted('ROLE_ADMIN') %}
+							<a href="{{ path('app_product_show', {'id': product.id}) }}">Show</a>
+							<a href="{{ path('app_product_edit', {'id': product.id}) }}">Edit</a>
+						{% endif %}
+						{% if is_granted('ROLE_USER') %}
+							<a href="{{ path('app_orders', {'id': product.id}) }}">Add to Cart</a>
+						{% endif %}
+					</td>
 				</tr>
 			{% else %}
 				<tr>

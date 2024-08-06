@@ -11,11 +11,18 @@ use Symfony\Component\Routing\Attribute\Route;
 class StaticController extends AbstractController
 {
     #[Route('/static', name: 'app_static')]
-    public function index(): Response
-    {
+    public function index(ProductRepository $productRepository): Response
+    {   
+       
+
         return $this->render('static/index.html.twig', [
-            'controller_name' => 'StaticController',
+            'products' => $productRepository->findAll(),
+           
         ]);
+
+
+        
+
     }
 
     

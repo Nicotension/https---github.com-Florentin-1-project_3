@@ -1,68 +1,55 @@
-
 <nav class="navbar">
 	<div class="navbar-container">
 		<a href="{{ path ('app_homepage')}}" class="nav-logo">Home</a>
-		<div class="nav-items">
 
-			{% if is_granted('ROLE_ADMIN')%}
-				<div class="nav-item dropdown">
-					<button class="dropdown-button">Products</button>
-					<div class="dropdown-menu">
-						<a href="{{ path ('app_product_index')}}">Show all</a>
-						<a href"{{ path ('app_catalog')}}">Product 1</a>
-						<a href="#">Product 2</a>
-						<a href="#">Product 3</a>
-					</div>
 
-				</div>
-			{% endif %}
-
-			{% if is_granted('ROLE_USER')%}
-				<div class="nav-item dropdown">
-					<button class="dropdown-button">Products</button>
-					<div class="dropdown-menu">
-						<a href="{{ path ('app_user_index')}}">Show all</a>
-						<a href="#">Product 1</a>
-						<a href="#">Product 2</a>
-						<a href="#">Product 3</a>
-					</div>
-
+		{% if is_granted('ROLE_USER')%}
+			<div class="nav-item dropdown">
+				<button class="dropdown-button">Products</button>
+				<div class="dropdown-menu">
+					<a href="{{ path ('app_user_index')}}">Show all</a>
+					<p>Filter Proudcts By:</p>
+					<a href="/user/filter/puppets">Puppets</a>
+					<a href="/user/filter/outdoor toy">Outdoor Toys</a>
+					<a href="/user/filter/boardgames">Boardgames</a>
+					<a href="/user/filter/infants">Infant Toys</a>
+					<a href="/user/filter/craft and arts">Craft and Arts</a>
+					<a href="/user/filter/construction">Construction Toys</a>
 				</div>
 
-			{% endif %}
+			</div>
 
-			{% if is_granted("IS_AUTHENTICATED_FULLY")!= true %}
+		{% endif %}
 
-				<a href="/register" class="nav-item">Register</a>
-				<a href="/login" class="nav-item">Login</a>
-			{% endif %}
+		{% if is_granted("IS_AUTHENTICATED_FULLY")!= true %}
 
-
-			<a href="{{ path ('app_orders_index')}}" class="nav-item cart">Cart</a>
-			<form class="search-form" action="{{ path('product_search') }}" method="get" data-controller="search">
-				<input type="text" placeholder="Search..." class="search-input" name="query" id="search-query" data-action="input->search#update">
-				<button type="submit" class="search-button">Search</button>
-			</form>
-
-				{% if is_granted("IS_AUTHENTICATED_FULLY")%}
-
-					<div class="nav-item dropdown">
-						<button class="dropdown-button">My Profile</button>
-						<div class="dropdown-menu">
-							<a href="{{ path('app_user_show') }}" type=" submit" class=" search-button">View Profile</a>
-							<a href="#">My Orders</a>
-
-						</div>
-
-					</div>
+			<a href="/register" class="nav-item">Register</a>
+			<a href="/login" class="nav-item">Login</a>
+		{% endif %}
 
 
-					<a href="/logout" type="submit" class="search-button">Logout</a>
-				{% endif %}
+		<a href="{{ path ('app_orders_index')}}" class="nav-item cart">Cart</a>
+		<form class="search-form" action="{{ path('product_search') }}" method="get" data-controller="search">
+			<input type="text" placeholder="Search..." class="search-input" name="query" id="search-query" data-action="input->search#update">
+			<button type="submit" class="search-button">Search</button>
+		</form>
+
+		{% if is_granted("IS_AUTHENTICATED_FULLY")%}
+
+			<div class="nav-item dropdown">
+				<button class="dropdown-button">My Profile</button>
+				<div class="dropdown-menu">
+					<a href="{{ path('app_user_show') }}" type=" submit" class=" search-button">View Profile</a>
+					<a href="#">My Orders</a>
+
+				</div>
+
+			</div>
 
 
-			
-		</div>
+			<a href="/logout" type="submit" class="search-button">Logout</a>
+		{% endif %}
+
+
 	</div>
-</nav>
-<div class="oline"></div>
+</div></nav><div class="oline"></div>
