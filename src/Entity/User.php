@@ -49,11 +49,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?bool $isBanned = null;
 
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private $bannedUntil;
+
+    // Add other properties and methods here...
+
+    public function getBannedUntil(): ?\DateTimeInterface
+    {
+        return $this->bannedUntil;
+    }
+
+    public function setBannedUntil(?\DateTimeInterface $bannedUntil): self
+    {
+        $this->bannedUntil = $bannedUntil;
+
+        return $this;
+    }
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
 
-    
+
 
     public function getId(): ?int
     {
@@ -201,5 +218,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    // Add the setter method named `setBanned` instead of `setIsBanned`.
+    public function getIsBanned(): ?bool
+    {
+        return $this->isBanned;
+    }
 
+    public function setIsBanned(?bool $isBanned): self
+    {
+        $this->isBanned = $isBanned;
+
+        return $this;
+    }
 }

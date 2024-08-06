@@ -28,6 +28,7 @@ class ProductCrudController extends AbstractCrudController
             ImageField::new('picture')
                 ->setUploadDir('public/uploads/images')
                 ->setBasePath('uploads/images')
+                ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setRequired(false),
             ChoiceField::new('category')
                 ->setChoices([
@@ -38,7 +39,7 @@ class ProductCrudController extends AbstractCrudController
                     'Crafts & Art' => 'Crafts & Art',
                     'Constructions' => 'Constructions'
                 ]),
-            TextEditorField::new('description'),
+            TextField::new('description'),
             IntegerField::new('discount')
         ];
     }

@@ -18,10 +18,10 @@ class ProductType extends AbstractType
         $builder
             ->add('name')
             ->add('price')
-            ->add('availability', ChoiceType::class, ["choices" => ["-Select Status-"=> ["Available" => "Available", "Not Available" => "Not Available"]], "attr" => ["class" => "form-control"]])
+            ->add('availability', ChoiceType::class, ["choices" => ["-Select Status-" => ["Available" => "Available", "Not Available" => "Not Available"]], "attr" => ["class" => "form-control"]])
             ->add('picture')
-            ->add('category', ChoiceType::class, ["choices" => ["-Select Category-"=>["Outdoor toy" => "Outdoor toy", "Puppets" => "Puppets", "Boardgames" => "Boardgames", "Infants" => "Infants", "Craft And Arts" => "Craft And Arts", "Construction" => "Construction"]], "attr" => ["class" => "form-control"]])
-            ->add('description', )
+            ->add('category', ChoiceType::class, ["choices" => ["-Select Category-" => ["Outdoor toy" => "Outdoor toy", "Puppets" => "Puppets", "Boardgames" => "Boardgames", "Infants" => "Infants", "Craft And Arts" => "Craft And Arts", "Construction" => "Construction"]], "attr" => ["class" => "form-control"]])
+            ->add('description',)
 
             ->add('picture', FileType::class, [
                 'label' => 'Picture (img, jpg, jpeg file)',
@@ -46,8 +46,7 @@ class ProductType extends AbstractType
                         'mimeTypesMessage' => 'Please upload a valid PDF document',
                     ])
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

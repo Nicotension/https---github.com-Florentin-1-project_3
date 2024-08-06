@@ -22,16 +22,16 @@ class Product
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $price = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $availability = null;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $availability = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $picture = null;
-
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $picture;
+    
     #[ORM\Column(length: 255)]
     private ?string $category = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'text',length: 255)]
     private ?string $description = null;
 
     /**
@@ -77,15 +77,14 @@ class Product
         return $this;
     }
 
-    public function getAvailability(): ?string
+    public function getAvailability(): ?bool
     {
         return $this->availability;
     }
 
-    public function setAvailability(string $availability): static
+    public function setAvailability(bool $availability): static
     {
         $this->availability = $availability;
-
         return $this;
     }
 
@@ -118,12 +117,14 @@ class Product
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(string $description): self
     {
-        $this->description = $description;
+        // Sanitize the description by stripping HTML tags
+        $this->description = strip_tags($description);
 
         return $this;
     }
+
 
     /**
      * @return Collection<int, Orders>
