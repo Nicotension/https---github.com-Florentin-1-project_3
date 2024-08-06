@@ -19,7 +19,7 @@ class DiscountCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name'),
-            MoneyField::new('percentage')->setCurrency('USD'),
+            MoneyField::new('percentage')->setCurrency('EUR'),
             DateTimeField::new('startDate'),
             DateTimeField::new('endDate'),
         ];
