@@ -27,7 +27,7 @@ class Orders
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product = null;
 
-  
+
 
     public function getId(): ?int
     {
@@ -44,7 +44,7 @@ class Orders
     public function setDateTime(\DateTimeInterface $date_time): static
     {
         $this->date_time = $date_time;
-        
+
 
         return $this;
     }
@@ -73,19 +73,17 @@ class Orders
         return $this;
     }
 
-private ?Product $fk_product_id = null;
+    private ?Product $fk_product_id = null;
 
-public function getFkProductId(): ?Product
-{
-    return $this->fk_product_id;
+    public function getFkProductId(): ?Product
+    {
+        return $this->fk_product_id;
+    }
+
+    public function setFkProductId(?Product $product): self
+    {
+        $this->fk_product_id = $product;
+
+        return $this;
+    }
 }
-
-public function setFkProductId(?Product $product): self
-{
-    $this->fk_product_id = $product;
-
-    return $this;
-}    
-
-}
-
