@@ -34,8 +34,6 @@
 
 						<td>
 							{% for order in orders %}
-								<a href="{{ path('app_orders_show', {'id' : order.id}) }}">show</a>
-
 								{{ include('orders/_delete_form.html.twig') }}
 							{% endfor %}
 						</td>
@@ -56,11 +54,7 @@
 			</tbody>
 
 		</table>
-		{# {% for product in products %}
-																																																																																	<p>{{product.getName()}}</p>
-																																																																																	<p>{{product.getPrice()}}</p>
-																																																																														
-																																																																																{% endfor %} #}
+
 
 	{% endif %}
 
