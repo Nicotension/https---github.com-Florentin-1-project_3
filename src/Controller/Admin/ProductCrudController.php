@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 
+
 class ProductCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
@@ -40,7 +41,7 @@ class ProductCrudController extends AbstractCrudController
                     'Constructions' => 'Constructions'
                 ]),
             TextField::new('description'),
-            IntegerField::new('discount')
+            
         ];
     }
 }

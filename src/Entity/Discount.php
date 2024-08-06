@@ -25,7 +25,7 @@ class Discount
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $endDate = null;
 
-    #[ORM\ManyToOne(targetEntity: Product::class)]
+    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'discounts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product = null;
 

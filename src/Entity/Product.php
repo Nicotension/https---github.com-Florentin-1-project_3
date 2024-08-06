@@ -49,6 +49,7 @@ class Product
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->discounts = new ArrayCollection();
     }
 
     public function __toString()

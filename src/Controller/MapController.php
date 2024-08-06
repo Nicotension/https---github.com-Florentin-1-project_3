@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class MapController extends AbstractController
 {
     
-      #[Route("/map", name:"map")]
+      #[Route("/map", name:"app_map")]
      
     public function index(): Response
     {
