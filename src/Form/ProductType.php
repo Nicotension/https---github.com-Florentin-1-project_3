@@ -17,11 +17,13 @@ class ProductType extends AbstractType
         $builder
             ->add('name')
             ->add('price')
-            ->add('availability')
+            ->add('availability', CheckboxType::class, [
+                'label' => 'Availability',
+                'required' => false,
+            ])
             ->add('picture')
             ->add('category')
-            ->add('description', )
-
+            ->add('description')
             ->add('picture', FileType::class, [
                 'label' => 'Picture (img, jpg, jpeg file)',
 

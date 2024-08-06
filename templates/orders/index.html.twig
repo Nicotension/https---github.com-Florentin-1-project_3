@@ -1,66 +1,77 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Orders index
-{% endblock %}
+{% block title %}Orders index{% endblock %}
 
 {% block body %}
-	<h1>Orders index</h1>
+<h1>Orders index</h1>
 
-	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>
+                        {% if order.product.picture %}
+                            <img src="{{ asset('uploads/images/' ~ order.product.picture) }}" alt="{{ order.product.name }}" width="100">
+                        {% else %}
+                            No image available
+                        {% endif %}
+                    </td>
+                    <td>{{ order.product.name }}</td>
+                    <td>{{ order.product.description }}</td>
+                    <td>{{ order.product.price }}</td>
+                    <td>
+                        <a href="{{ path('app_orders_show', {'id': order.id}) }}">Show</a>
+                        <form method="post" action="{{ path('app_orders_delete', {'id': order.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');" style="display:inline;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ order.id) }}">
+                            <button class="btn">Delete</button>
+                        </form>
+                        <!-- Static PayPal Button -->
+                        <button class="btn btn-primary" onclick="showPayPalButtons('{{ order.id }}', '{{ order.product.price }}')">Pay with PayPal</button>
+                        <!-- PayPal Button Container -->
+                        <div id="paypal-button-container-{{ order.id }}" style="display:none;"></div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">No records found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
 
-		<table class="table">
-
-			<thead>
-				<tr>
-					<th></th>
-					<th>Product Name</th>
-					<th>Description</th>
-					<th>Price</th>
-					<th>actions</th>
-				</tr>
-			</thead>
-			<tbody>
-
-				{% for product in products %}
-
-
-					<tr>
-						<td>{{product.getPicture()}}</td>
-						<td>{{product.getName()}}</td>
-						<td>{{product.getDescription()}}</td>
-						<td>{{product.getPrice()}}</td>
-
-
-						<td>
-							{% for order in orders %}
-								<a href="{{ path('app_orders_show', {'id' : order.id}) }}">show</a>
-
-								{{ include('orders/_delete_form.html.twig') }}
-							{% endfor %}
-						</td>
-
-
-					</tr>
-
-
-				{% else %}
-					<tr>
-						<td colspan="5">no records found</td>
-					</tr>
-
-
-				{% endfor %}
-
-
-			</tbody>
-
-		</table>
-		{# {% for product in products %}
-																																																																							<p>{{product.getName()}}</p>
-																																																																							<p>{{product.getPrice()}}</p>
-																																																																				
-																																																																						{% endfor %} #}
-
-	{% endif %}
-
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
+<script>
+    function showPayPalButtons(orderId, amount) {
+        var containerId = 'paypal-button-container-' + orderId;
+        document.getElementById(containerId).style.display = 'block';
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: amount
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Transaction completed by ' + details.payer.name.given_name);
+                    // Redirect to a thank you page or update the order status in your database
+                });
+            }
+        }).render('#' + containerId);
+    }
+</script>
 {% endblock %}
