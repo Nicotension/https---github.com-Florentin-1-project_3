@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 
@@ -26,7 +27,7 @@ class ProductController extends AbstractController
 
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
     public function index(ProductRepository $productRepository): Response
-    {   
+    {
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
         ]);
@@ -83,14 +84,14 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-                $picture = $form->get('picture')->getData();
-                if ($picture) {
-                    if($product->getPicture() != "placeholder.jpg") {
-                        unlink($this->getParameter("picture_directory") . "/" . $product->getPicture());
-                    }
-                    $pictureName = $fileUploader->upload($picture);
-                    $product->setPicture($pictureName);
+            $picture = $form->get('picture')->getData();
+            if ($picture) {
+                if ($product->getPicture() != "placeholder.jpg") {
+                    unlink($this->getParameter("picture_directory") . "/" . $product->getPicture());
                 }
+                $pictureName = $fileUploader->upload($picture);
+                $product->setPicture($pictureName);
+            }
 
             $entityManager->flush();
 
@@ -107,9 +108,9 @@ class ProductController extends AbstractController
     public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
-                if($product->getPicture() != "placeholder.jpg") {
-                    unlink($this->getParameter("picture_directory") . "/" . $product->getPicture());
-                }
+            if ($product->getPicture() != "placeholder.jpg") {
+                unlink($this->getParameter("picture_directory") . "/" . $product->getPicture());
+            }
             $entityManager->remove($product);
             $entityManager->flush();
         }
@@ -126,6 +127,4 @@ class ProductController extends AbstractController
             'products' => $products,
         ]);
     }
-
-   
 }

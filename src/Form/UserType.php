@@ -20,6 +20,10 @@ class UserType extends AbstractType
             ->add('phone')
             ->add('date_of_birth')
             // ->add('is_banned')
+            ->add('isBanned', CheckboxType::class, [
+                'label' => 'Is Banned',
+                'required' => false,
+            ])
             // ->add('password')
             ->add('picture', FileType::class, [
                 'label' => 'Picture (img, jpg, jpeg file)',

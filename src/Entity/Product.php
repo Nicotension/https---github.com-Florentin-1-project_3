@@ -22,16 +22,16 @@ class Product
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $price = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $availability = null;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $availability = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $picture = null;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $picture;
 
     #[ORM\Column(length: 255)]
     private ?string $category = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'text', length: 255)]
     private ?string $description = null;
 
     /**
@@ -40,12 +40,20 @@ class Product
     #[ORM\OneToMany(targetEntity: Orders::class, mappedBy: 'fk_product_id')]
     private Collection $orders;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $discount = null;
+    /**
+     * @var Collection<int, Discount>
+     */
+    #[ORM\OneToMany(targetEntity: Discount::class, mappedBy: 'discount')]
+    private Collection $discounts;
 
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return strval($this->getId());
     }
 
     public function getId(): ?int
@@ -77,15 +85,14 @@ class Product
         return $this;
     }
 
-    public function getAvailability(): ?string
+    public function getAvailability(): ?bool
     {
         return $this->availability;
     }
 
-    public function setAvailability(string $availability): static
+    public function setAvailability(bool $availability): static
     {
         $this->availability = $availability;
-
         return $this;
     }
 
@@ -118,12 +125,14 @@ class Product
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(string $description): self
     {
-        $this->description = $description;
+        // Sanitize the description by stripping HTML tags
+        $this->description = strip_tags($description);
 
         return $this;
     }
+
 
     /**
      * @return Collection<int, Orders>
@@ -155,14 +164,32 @@ class Product
         return $this;
     }
 
-    public function getDiscount(): ?int
+    /**
+     * @return Collection<int, Discount>
+     */
+    public function getDiscounts(): Collection
     {
-        return $this->discount;
+        return $this->discounts;
     }
 
-    public function setDiscount(?int $discount): static
+    public function addDiscount(Discount $discount): static
     {
-        $this->discount = $discount;
+        if (!$this->discounts->contains($discount)) {
+            $this->discounts->add($discount);
+            $discount->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiscount(Discount $discount): static
+    {
+        if ($this->discounts->removeElement($discount)) {
+            // set the owning side to null (unless already changed)
+            if ($discount->getProduct() === $this) {
+                $discount->setProduct(null);
+            }
+        }
 
         return $this;
     }
