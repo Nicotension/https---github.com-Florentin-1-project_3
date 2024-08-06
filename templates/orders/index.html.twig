@@ -25,7 +25,8 @@
 
 
 					<tr>
-						<td>{{product.getPicture()}}</td>
+
+						<td><img src="{{ asset('uploads/' ~ product.picture) }}" alt="{{ product.name }}" width="150"></td>
 						<td>{{product.getName()}}</td>
 						<td>{{product.getDescription()}}</td>
 						<td>{{product.getPrice()}}</td>
@@ -56,10 +57,10 @@
 
 		</table>
 		{# {% for product in products %}
-																																																																							<p>{{product.getName()}}</p>
-																																																																							<p>{{product.getPrice()}}</p>
-																																																																				
-																																																																						{% endfor %} #}
+																																																																																	<p>{{product.getName()}}</p>
+																																																																																	<p>{{product.getPrice()}}</p>
+																																																																														
+																																																																																{% endfor %} #}
 
 	{% endif %}
 
