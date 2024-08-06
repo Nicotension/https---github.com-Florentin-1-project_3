@@ -224,6 +224,19 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/filter/{category}', name: 'app_product_filter', methods: ['GET'])]
+    public function filterByCategory(ProductRepository $productRepository, $category): Response
+    {
+        $product = $productRepository->findByCategory($category); 
+        
+        // dd($product);
+        
+        return $this->render('product/filter.html.twig', [
+            'product' => $product
+        ]);
+    }
+
+
     
 }
 

@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
@@ -17,9 +18,9 @@ class ProductType extends AbstractType
         $builder
             ->add('name')
             ->add('price')
-            ->add('availability')
+            ->add('availability', ChoiceType::class, ["choices" => ["-Select Status-"=> ["Available" => "Available", "Not Available" => "Not Available"]], "attr" => ["class" => "form-control"]])
             ->add('picture')
-            ->add('category')
+            ->add('category', ChoiceType::class, ["choices" => ["-Select Category-"=>["Outdoor toy" => "Outdoor toy", "Puppets" => "Puppets", "Boardgames" => "Boardgames", "Infants" => "Infants", "Craft And Arts" => "Craft And Arts", "Construction" => "Construction"]], "attr" => ["class" => "form-control"]])
             ->add('description', )
 
             ->add('picture', FileType::class, [
