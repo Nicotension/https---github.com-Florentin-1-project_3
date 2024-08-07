@@ -14,6 +14,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\BatchActionDto;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -33,16 +35,22 @@ class UserCrudController extends AbstractCrudController
             ->add(Crud::PAGE_EDIT, $banAction);
     }
 
-    #[Route('/admin/user/ban/{id}', name: 'admin_user_ban_for_24_hours')]
-    public function banFor24Hours(EntityManagerInterface $entityManager, int $id): RedirectResponse
+
+    public function banFor24Hours(AdminContext $context, EntityManagerInterface $entityManager)
     {
-        $user = $entityManager->getRepository(User::class)->find($id);
-        if ($user) {
-            $user->setBannedUntil(new \DateTime('+24 hours'));
+        $user = $context->getEntity()->getInstance();
+        if ($user instanceof User) {
+            $user->banFor24Hours();
+            $entityManager->persist($user);
             $entityManager->flush();
         }
+        $this->addFlash('success', 'User has been banned for 24 hours.');
+        $userRepository = $entityManager->getRepository(User::class);
+        $userCount = $userRepository->count([]);
 
-        return $this->redirectToRoute('admin_user_index');
+        return $this->render('admin/dashboard.html.twig', [
+            'userCount' => $userCount,
+        ]);
     }
 
     public function configureFields(string $pageName): iterable

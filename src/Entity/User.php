@@ -230,4 +230,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    public function banFor24Hours()
+    {
+
+        $this->bannedUntil = new \DateTime('+24 hours');
+    }
 }
