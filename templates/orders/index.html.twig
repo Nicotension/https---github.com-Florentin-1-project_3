@@ -13,6 +13,8 @@
                 <th>Product Name</th>
                 <th>Description</th>
                 <th>Price</th>
+				<th>Quantity</th>
+				<th>Subtotal</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -26,11 +28,17 @@
                             No image available
                         {% endif %}
                     </td>
+
                     <td>{{ order.product.name }}</td>
                     <td>{{ order.product.description }}</td>
                     <td>{{ order.product.price }}</td>
+					<td>{{ order.quantity}}</td>	
+					<td>{{ order.quantity * order.product.price }}</td>
+					
+					
                     <td>
-                        <a href="{{ path('app_orders_show', {'id': order.id}) }}">Show</a>
+                        
+						<a href="{{ path('app_orders_edit', {'id': order.id}) }}">Edit Qty</a>
                         <form method="post" action="{{ path('app_orders_delete', {'id': order.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');" style="display:inline;">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ order.id) }}">
                             <button class="btn">Delete</button>
@@ -45,7 +53,9 @@
                 <tr>
                     <td colspan="5">No records found</td>
                 </tr>
+				
             {% endfor %}
+			
         </tbody>
     </table>
 {% endif %}
@@ -74,4 +84,7 @@
         }).render('#' + containerId);
     }
 </script>
+<div>
+
+
 {% endblock %}

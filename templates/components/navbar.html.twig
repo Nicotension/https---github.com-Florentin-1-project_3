@@ -50,6 +50,9 @@
 			<a href="/logout" type="submit" class="search-button">Logout</a>
 		{% endif %}
 
+		{% if is_granted('ROLE_ADMIN')%}
+		<a href="/admin" type="submit" class="search-button">Dashboard</a>
+		{% endif %}
 
 	</div>
 </div></nav><div class="oline"></div>

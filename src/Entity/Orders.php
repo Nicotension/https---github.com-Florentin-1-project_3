@@ -75,6 +75,9 @@ class Orders
 
     private ?Product $fk_product_id = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $quantity = null;
+
     public function getFkProductId(): ?Product
     {
         return $this->fk_product_id;
@@ -83,6 +86,18 @@ class Orders
     public function setFkProductId(?Product $product): self
     {
         $this->fk_product_id = $product;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(?int $quantity): static
+    {
+        $this->quantity = $quantity;
 
         return $this;
     }

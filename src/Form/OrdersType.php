@@ -14,9 +14,14 @@ class OrdersType extends AbstractType
         $builder
             // ->add('user_id')
             // ->add('product_id')
-            ->add('date_time', null, [
-                'widget' => 'single_text',
-            ])
+            // ->add('date_time', null, [
+            //     'widget' => 'single_text',
+            // ])
+
+            ->add('quantity', null, ["attr" => ["placeholder" => "Please enter quantity","class" => "form-control"], 'data'=> 1] 
+            
+            
+            )
 
             
         ;

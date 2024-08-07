@@ -54,6 +54,7 @@ class OrdersController extends AbstractController
             
             $entityManager->persist($order);
             $entityManager->flush();
+            
             // $now = new \DateTime('now');
             
             return $this->redirectToRoute('app_orders_index', [], Response::HTTP_SEE_OTHER);

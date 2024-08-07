@@ -23,7 +23,7 @@
                     <h1>LANDING PAGE</h1>
                     <p>Bla bla bla</p>
                     <div class="button-container">
-                        <button onclick="window.location.href='{{ path ('app_user_index')}}'">Products</button>
+                        <button onclick="window.location.href='{{ path ('app_static')}}'">Products</button>
                         <button onclick="window.location.href='/register'">Register</button>
                     </div>
                 {% endif %}
@@ -40,7 +40,7 @@
                     <p>{{ product.description|raw }}</p>
                     <p>Price: {{ product.price }}</p>
                     <p>Category: {{ product.category }}</p>
-                    <img src="{{ asset('uploads/' ~ product.picture) }}" alt="{{ product.name }}">
+                    <img src="{{ asset('uploads/images/' ~ product.picture) }}" alt="{{ product.name }}" width="350">
                 </div>
             {% endfor %}
         </div>
