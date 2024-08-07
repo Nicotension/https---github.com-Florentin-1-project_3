@@ -23,7 +23,7 @@
                 <tr>
                     <td>
                         {% if order.product.picture %}
-                            <img src="{{ asset('uploads/images/' ~ order.product.picture) }}" alt="{{ order.product.name }}" width="100">
+                            <img src="{{ asset('uploads/' ~ order.product.picture) }}" alt="{{ order.product.name }}" width="100">
                         {% else %}
                             No image available
                         {% endif %}
