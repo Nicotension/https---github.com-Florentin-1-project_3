@@ -40,7 +40,7 @@
                     <p>{{ product.description|raw }}</p>
                     <p>Price: {{ product.price }}</p>
                     <p>Category: {{ product.category }}</p>
-                    <img src="{{ asset('uploads/images/' ~ product.picture) }}" alt="{{ product.name }}" width="350">
+                    <img src="{{ asset('uploads/' ~ product.picture) }}" alt="{{ product.name }}" width="350">
                 </div>
             {% endfor %}
         </div>
