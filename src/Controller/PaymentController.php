@@ -27,9 +27,9 @@ class PaymentController extends AbstractController
      
     public function paymentSubmit(Request $request): Response
     {
-        // Handle form submission
+        
         $data = $request->request->all();
-        // Here, you would process the payment and provide feedback to the user
+        
 
         return $this->redirectToRoute('payment_success');
     }
