@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello HomepageController!{% endblock %}
-
+{% block title %}Welcome to Toy Wonderland!{% endblock %}
 {% block body %}
     <style>
         .example-wrapper {
@@ -14,20 +12,20 @@
             background: #F5F5F5;
             padding: 2px 6px;
         }
-
         .index_card {
         height: 100%;
         display: flex;
         flex-direction: column;
         }
     </style>
-
     <div class="hero-wrapper">
         <div class="hero">
             <div class="hero-content">
                 {% if not is_granted("IS_AUTHENTICATED_FULLY") %}
-                    <h1>LANDING PAGE</h1>
-                    <p>Bla bla bla</p>
+                    <h1>Welcome to TOY WONDERLAND!</h1>
+                    <p>Check out these fun, creative, educational and sensory toys!</p>
+                    <p>Foster your child's imagination, social and motor skills, </p>
+                    <p>have your own adventures and create memories.</p>
                     <div class="button-container">
                         <button onclick="window.location.href='/static'">Products</button>
                         <button onclick="window.location.href='/register'">Register</button>
@@ -36,8 +34,6 @@
             </div>
         </div>
     </div>
-
-
     <h2>Our Products</h2>
     <div class="container text-center">
             <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4  ">
@@ -56,8 +52,6 @@
             {% endfor %}
         </div>
     </div>
-   
-
     <div class="reviews">
         <h2>What Our Users Say</h2>
         <div class="card-container">
@@ -65,21 +59,21 @@
                 <div class="card-content">
                     <p>"This is an amazing product! Highly recommend it."</p>
                     <h3>Jane Doe</h3>
-                    <span>⭐⭐⭐⭐⭐</span>
+                    <span>:stern::stern::stern::stern::stern:</span>
                 </div>
             </div>
             <div class="card">
                 <div class="card-content">
                     <p>"Fantastic service and great value for money."</p>
                     <h3>John Smith</h3>
-                    <span>⭐⭐⭐⭐⭐</span>
+                    <span>:stern::stern::stern::stern::stern:</span>
                 </div>
             </div>
             <div class="card">
                 <div class="card-content">
                     <p>"A game changer in the industry. Will use again."</p>
                     <h3>Emily Johnson</h3>
-                    <span>⭐⭐⭐⭐</span>
+                    <span>:stern::stern::stern::stern:</span>
                 </div>
             </div>
         </div>
