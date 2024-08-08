@@ -18,7 +18,7 @@ class OrdersType extends AbstractType
             //     'widget' => 'single_text',
             // ])
 
-            ->add('quantity', null, ["attr" => ["placeholder" => "Please enter quantity","class" => "form-control"], 'data'=> 1] 
+            ->add('quantity', null, ["attr" => ["placeholder" => "Please enter quantity","class" => "form-control", 'min'=> 1, 'max' => 100, ], 'data'=> 1] 
             
             
             )

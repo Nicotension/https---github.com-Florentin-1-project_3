@@ -15,11 +15,22 @@
                 <th>Price</th>
 				<th>Quantity</th>
 				<th>Subtotal</th>
+               
+                
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
+        {% set total = 0 %}
+        {% set defaultqty = 0 %}
+       
+       
+
             {% for order in orders %}
+
+            {% set subtotal = order.product.price * order.quantity %}
+            {% set total = total + subtotal %}
+            
                 <tr>
                     <td>
                         {% if order.product.picture %}
@@ -28,12 +39,14 @@
                             No image available
                         {% endif %}
                     </td>
-
+                    
                     <td>{{ order.product.name }}</td>
                     <td>{{ order.product.description }}</td>
                     <td>{{ order.product.price }}</td>
-					<td>{{ order.quantity}}</td>	
-					<td>{{ order.quantity * order.product.price }}</td>
+                    <td>{{ order.quantity + defaultqty}}</td>
+                   <td>{{ order.quantity * order.product.price }}</td>
+                    
+                    
 					
 					
                     <td>
@@ -43,10 +56,10 @@
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ order.id) }}">
                             <button class="btn">Delete</button>
                         </form>
-                        <!-- Static PayPal Button -->
+                        {# <!-- Static PayPal Button -->
                         <button class="btn btn-primary" onclick="showPayPalButtons('{{ order.id }}', '{{ order.product.price }}')">Pay with PayPal</button>
                         <!-- PayPal Button Container -->
-                        <div id="paypal-button-container-{{ order.id }}" style="display:none;"></div>
+                        <div id="paypal-button-container-{{ order.id }}" style="display:none;"></div> #}
                     </td>
                 </tr>
             {% else %}
@@ -56,10 +69,23 @@
 				
             {% endfor %}
             
+
 			
         </tbody>
+
+
     </table>
 {% endif %}
+
+
+
+
+<h4>Total : {{ total }} </hr>
+<a  class="btn btn-primary" href="{{ path ('app_payment')}}">Proceed to Payment</a>
+
+
+
+
 
 <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
 <script>

@@ -134,7 +134,7 @@ class UserController extends AbstractController
 
             $picture = $form->get('picture')->getData();
             if ($picture) {
-                if($user->getPicture() == null) {
+                if($user->getPicture() != 'user_default.png') {
                     $pictureName = $fileUploader->upload($picture);
                     $user->setPicture($pictureName);
                     
@@ -161,6 +161,10 @@ class UserController extends AbstractController
             'form' => $form,
         ]);
     }
+
+
+
+
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
