@@ -7,56 +7,68 @@
 {% block body %}
 <style>
 
-.index_card {
+/* .index_card {
   height: 100%;
   display: flex;
   flex-direction: column;
-}
+} */
 
-  .button-container {
+  /* .button-container {
     display: flex;
-  }
+  } */
 
-  .button-container a {
+  /* .button-container a {
     flex: 1 1 auto; 
     margin-right: 5px; 
-  }
+  } */
 
-  .button-container a:last-child {
+  /* .button-container a:last-child {
     margin-right: 0; 
-  }
+  } */
 
  </style>
-    <h1>Product Catalog</h1>
+    <h1 class=" m-3">Product Catalog</h1>
 
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_product_new') }}">Create new</a>
+        <a class=" m-3 btn btn-primary" href="{{ path('app_product_new') }}">Create new</a>
     {% endif %}
 	
 	
 	<div class="container text-center">
-    	<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4  ">
+    	{# <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4  "> #}
+
+		<div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-gap-3 mt-5">
         	{% for product in products %}
             	<div class="col mb-3">
                 	<div class="card  index_card" style="width: 100%;">
+					
                     	<img src="{{ asset('uploads/' ~ product.picture) }}" alt="{{ product.name }}" class="card-img-top" width="150">
                     	<div class="card-body">
 							<h5 class="card-title">{{ product.name }}</h5>
 							<p class="card-text"> Price: {{ product.price }} </p>
-							<p class="card-text"> Availability: {{ product.availability }} </p>
+							{# <p class="card-text"> Availability: {{ product.availability }} </p> #}
 							<p class="card-text"> Category: {{ product.category }} </p>
 							<p class="card-text"> {{ product.description }} </p>
-							<div class="button-container">
-								{% if is_granted('ROLE_ADMIN') %}
+						<div class="d-flex flex-column gap-1 ">
+							<div class="d-flex justify-content-evenly row-gap-1">
+							{% if is_granted('ROLE_ADMIN') %}
 									<a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary">Show</a>
-									<a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-primary">Edit</a>   
-
+									<a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-primary">Edit</a> 
+									
 								{% endif %}
-								{% if is_granted('ROLE_USER') %}
-									<a href="{{ path('app_orders', {'id': product.id}) }}" class="btn btn-primary">Add to Cart</a>
-									<a href="{{ path('app_questions', {'id': product.id}) }}" class="btn btn-primary">Ask us a question</a>
-									<a href="{{ path('app_reviews', {'id': product.id}) }}" class="btn btn-primary">Write a review</a>
+							</div>
+								
+								
+							<div class="d-flex justify-content-evenly row-gap-1">
+							{% if is_granted('ROLE_USER') %}
+									<a href="{{ path('app_questions', {'id': product.id}) }}" class="btn btn-warning">Questions?</a>
+									
+									<a href="{{ path('app_reviews', {'id': product.id}) }}" class="btn btn-warning">Reviews</a>
 								{% endif %}
+								
+							</div>
+								
+								<a href="{{ path('app_orders', {'id': product.id}) }}" class="btn btn-success">Add to Cart</a>
                         	</div>
 
                     	</div>
