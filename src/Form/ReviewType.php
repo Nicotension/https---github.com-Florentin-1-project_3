@@ -17,7 +17,7 @@ class ReviewType extends AbstractType
     {
         $builder
             ->add('description', TextareaType::class, [
-            'attr' => ['placeholder' => 'description'],
+            'attr' => ['placeholder' => 'Write your review here'],
             'label' => 'Description',
         ]);
             /*->add('fk_user_id', EntityType::class, [
