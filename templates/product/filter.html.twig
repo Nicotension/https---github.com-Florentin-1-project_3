@@ -5,7 +5,7 @@
 
 
 {% block body %}
-	<h1 class=" m-3">Product Catalog</h1>
+	<h1 class=" m-3">Our Products</h1>
 
     {% if is_granted('ROLE_ADMIN') %}
         <a class=" m-3 btn btn-primary" href="{{ path('app_product_new') }}">Create new</a>

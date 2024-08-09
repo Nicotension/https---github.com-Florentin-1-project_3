@@ -20,8 +20,8 @@
     </style>
     <div class="hero-wrapper">
         <div class="hero">
-            <div class="hero-content">
-                {% if not is_granted("IS_AUTHENTICATED_FULLY") %}
+            <div class="hero-content">            
+            {% if not is_granted("IS_AUTHENTICATED_FULLY") %}
                     <h1>Welcome to TOY WONDERLAND!</h1>
                     <p>Check out these fun, creative, educational and sensory toys!</p>
                     <p>Foster your child's imagination, social and motor skills, </p>
@@ -29,8 +29,10 @@
                     <div class="button-container">
                         <button onclick="window.location.href='/static'">Products</button>
                         <button onclick="window.location.href='/register'">Register</button>
-                    </div>
+                  
                 {% endif %}
+            </div>
+                
             </div>
         </div>
     </div>

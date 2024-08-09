@@ -77,14 +77,24 @@
     </table>
 {% endif %}
 
+<div class="row row-cols ">
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
+<div class="">
 
+    <h4>Total : {{ total }} </hr>
 
-<h4>Total : {{ total }} </hr>
-<a  class="btn btn-primary" href="{{ path ('app_payment')}}">Proceed to Payment</a>
+    <a  class="btn btn-primary" href="{{ path ('app_payment')}}">Proceed to Payment</a>
+</div>
+<div class="">
 
+    <h4>Total : {{ total }} </hr>
 
+    <a  class="btn btn-primary" href="{{ path ('app_payment')}}">Proceed to Payment</a>
+</div>
 
+{% endif %}
+</div>
 
 
 <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
