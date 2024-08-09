@@ -17,8 +17,8 @@ class QuestionsType extends AbstractType
     {
         $builder
             ->add('question', TextareaType::class, [
-            'attr' => ['placeholder' => 'description'],
-            'label' => 'Description',
+            'attr' => ['placeholder' => 'Ask us questions about this product'],
+            'label' => 'Questions?',
         ]);
             /*->add('question')
             ->add('fk_product_id', EntityType::class, [
