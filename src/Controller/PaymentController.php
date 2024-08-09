@@ -10,12 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class PaymentController extends AbstractController
 {
     #[Route('/payment', name: 'app_payment')]
-    // public function index(): Response
-    // {
-    //     return $this->render('payment/index.html.twig', [
-    //         'controller_name' => 'PaymentController',
-    //     ]);
-    // }
+    
 
     public function payment(Request $request): Response
     {

@@ -15,16 +15,16 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('fname')
-            ->add('lname')
+            ->add('fname', null, ["label" => 'First Name'])
+            ->add('lname', null, ["label" => 'Last Name'])
             // ->add('email')
-            ->add('phone')
+            ->add('phone', null, ["label" => 'Contact Number'])
             ->add('date_of_birth')
             // ->add('is_banned')
-            ->add('isBanned', CheckboxType::class, [
-                'label' => 'Is Banned',
-                'required' => false,
-            ])
+            // ->add('isBanned', CheckboxType::class, [
+            //     'label' => 'Is Banned',
+            //     'required' => false,
+            // ])
             // ->add('password')
             ->add('picture', FileType::class, [
                 'label' => 'Picture (img, jpg, jpeg file)',
