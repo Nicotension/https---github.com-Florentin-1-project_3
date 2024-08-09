@@ -4,6 +4,15 @@
 
 {% block body %}
 <style>
+
+
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: rgb(232, 184, 36);
+    margin-top: 20px;
+}
   .index_card {
     height: 100%;
     display: flex;
@@ -38,7 +47,9 @@
 }
 </style>
 
+<div class=" pageTitle m-2 text-center">
 <h1>Product Catalog</h1>
+</div>
 
 {% if is_granted('ROLE_ADMIN') %}
     <a class="m-3 btn btn-primary" href="{{ path('app_product_new') }}">Create new</a>
