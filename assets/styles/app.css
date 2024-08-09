@@ -293,4 +293,10 @@ body {
 
 }
 
+h1 {
+    font-size: var(--font-size-h2);
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
 

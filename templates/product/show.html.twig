@@ -28,19 +28,24 @@ h1 {
                 <p><strong>Category:</strong> {{ product.category }}</p>
                 <p>{{ product.description }}</p>
 
-                <div class="d-flex flex-column gap-2">
+                <div class="ms-5 d-flex flex-column gap-2" style="width: 18rem;">
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary">Show</a>
                         <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-primary">Edit</a>
-                        {{ include('product/_delete_form.html.twig') }}
+                        
                     {% endif %}
 
                     {% if is_granted('ROLE_USER') %}
-                        <a href="{{ path('app_questions', {'id': product.id}) }}" class="btn btn-warning">Questions?</a>
+                        <a href="{{ path('app_questions', {'id': product.id}) }}" class="btn btn-warning">Questions</a>
                         <a href="{{ path('app_reviews', {'id': product.id}) }}" class="btn btn-warning">Reviews</a>
                     {% endif %}
-                    
+					                    
                     <a href="{{ path('app_orders', {'id': product.id}) }}" class="btn btn-success">Add to Cart</a>
+
+					{% if is_granted('ROLE_ADMIN') %}
+					{{ include('product/_delete_form.html.twig') }}
+					{% endif %}
+
                 </div>
             </div>
         </div>
