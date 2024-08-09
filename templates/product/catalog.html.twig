@@ -3,13 +3,29 @@
       <link rel="stylesheet" href="{{ asset("css/style.css")}}">
 {% endblock %}
 {% block body %}
+<style>
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: rgb(232, 184, 36);
+    margin-top: 20px;
+}
+
+.index_card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+} 
+</style>
+
     <h1>Product Catalog</h1>
 
     <div class="container">
         <div class="row row-cols-4">
             {% for product in products %}
             <div>
-            <div class="card" style="width: 18rem;">
+            <div class="card index_card" style="width: 18rem;">
                 <img width="150" src="{{ asset('uploads/' ~ product.picture ) }}" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">{{ product.name }}</h5>

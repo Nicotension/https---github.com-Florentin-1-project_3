@@ -1,55 +1,109 @@
+
 {% extends 'base.html.twig' %}
 
-{% block title %}User
-{% endblock %}
+{% block title %}User{% endblock %}
 
 {% block body %}
-<div class=" pageTitle m-2 text-center">
-	<h1>User</h1>
+<style>
+
+.pageTitle {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: rgb(232, 184, 36);
+    margin-top: 20px;
+}
+
+.back-link {
+    font-size: 1rem;
+    color: rgb(232, 184, 36);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: rgba(232, 184, 36, 0.8);
+}
+
+.custom-card {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    text-align: center;
+    margin: 0 auto; 
+}
+
+
+.custom-card img {
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+
+.btn-warning {
+    background-color: rgb(232, 184, 36);
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-warning:hover {
+    background-color: rgba(232, 184, 36, 0.8);
+    transform: scale(1.05);
+}
+
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.card-text {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+</style>
+
+<div class="pageTitle m-2 text-center">
+    <h1>User</h1>
+</div>
+
+
+
+<div class="container mt-5">
+    <div class="card custom-card" style="width: 18rem;">
+        <img width="150" src="{{ asset('uploads/' ~ user.picture ) }}" alt="{{ user.fname }} {{ user.lname }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ user.fname }} {{ user.lname }}</h5>
+            <p class="card-text">Email: {{ user.email }}</p>
+            <p class="card-text">Phone number: {{ user.phone }}</p>
+            <a class="btn btn-warning" href="{{ path('app_user_edit', {'id': user.id}) }}">Edit Account</a>
+            {{ include('user/_delete_form.html.twig') }}
+        </div>
+    </div>
 </div>
 
 <div>
-<a class="m-5" href="{{ path('app_homepage') }}"><<< Back to Home</a>
+    <a class="m-5 back-link" href="{{ path('app_homepage') }}">&#9664;&#9664; Back to Home</a>
 </div>
 
-
-	<div class="container mt-5">
-	<table class="table">
-		<tbody>
-
-			<td><img width="150" src="{{ asset('uploads/' ~ user.picture ) }}"/></td>
-
-			<tr>
-				<th>First Name</th>
-				<td>{{ user.fname }}</td>
-			</tr>
-			<tr>
-				<th>Last Name</th>
-				<td>{{ user.lname }}</td>
-			</tr>
-			<tr>
-				<th>Email</th>
-				<td>{{ user.email }}</td>
-			</tr>
-			<tr>
-				<th>Phone Number</th>
-				<td>{{ user.phone }}</td>
-			</tr>
-
-			<tr>
-			{# <th>Birthday</th>
-			<td>{{ user.date_of_birth }}</td>
-			</tr> #}
-
-		</tbody>
-	</table>
-
-	
-
-	<a class="btn btn-warning" href="{{ path('app_user_edit', {'id': user.id}) }}">Edit Account</a>
-
-	{{ include('user/_delete_form.html.twig') }}
-	</div>
-
-	
 {% endblock %}
+

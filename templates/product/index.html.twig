@@ -7,11 +7,11 @@
 {% block body %}
 <style>
 
-/* .index_card {
+.index_card {
   height: 100%;
   display: flex;
   flex-direction: column;
-} */
+} 
 
   /* .button-container {
     display: flex;
@@ -61,7 +61,7 @@
 							<div class="d-flex justify-content-evenly row-gap-1">
 							{% if is_granted('ROLE_USER') %}
 									<a href="{{ path('app_questions', {'id': product.id}) }}" class="btn btn-warning">Questions?</a>
-									<a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary">Show</a>
+									<a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-warning">Show</a>
 									<a href="{{ path('app_reviews', {'id': product.id}) }}" class="btn btn-warning">Reviews</a>
 								{% endif %}
 								

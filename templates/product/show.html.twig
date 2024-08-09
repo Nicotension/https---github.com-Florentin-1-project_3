@@ -3,6 +3,14 @@
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block body %}
+<style>
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: rgb(232, 184, 36);
+    margin-top: 20px;
+}
+</style>
 <div class="container mt-5">
 
     <h1 class="mb-4">{{ product.name }}</h1>
@@ -73,12 +81,12 @@
     </div>
 
     <div class="mt-4">
-        <a href="{{ path('app_product_index') }}" class="btn btn-secondary">Back to list</a>
+        <a href="{{ path('app_product_index') }}" class="btn btn-secondary"> &#9664;&#9664; Back to list</a>
     </div>
 
 </div>
 
-    <a href="{{ path('app_product_index') }}">back to list</a>
+   
 
     <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
 
