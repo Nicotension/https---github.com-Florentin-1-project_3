@@ -3,7 +3,15 @@
 {% block title %}Questions index{% endblock %}
 
 {% block body %}
-    <h1>Questions index</h1>
+    <div class=" pageTitle m-2 text-center">
+        <h1>Questions Index</h1>
+    </div>
+
+     <div>
+            <a  class="m-5" href="{{ path ('app_homepage')}}"><<< Back to Home</a>
+    </div>
+
+    <div class="container mt-5">
 
     <table class="table">
         <thead>
@@ -11,6 +19,7 @@
                 <th>Id</th>
                 <th>Question</th>
                 <th>actions</th>
+            
             </tr>
         </thead>
         <tbody>
@@ -18,10 +27,17 @@
             <tr>
                 <td>{{ question.id }}</td>
                 <td>{{ question.question }}</td>
+                {# {% if is_granted('ROLE_ADMIN') %} #}
+                {# <td>
+                    
+                    <a class="btn btn-warning" href="{{ path('app_questions_edit', {'id': question.id}) }}">edit</a>
+                </td> #}
+                {# {% endif %} #}
+
                 <td>
-                    <a href="{{ path('app_questions_show', {'id': question.id}) }}">show</a>
-                    <a href="{{ path('app_questions_edit', {'id': question.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('app_questions_show', {'id': question.id}) }}">show</a>
                 </td>
+
             </tr>
         {% else %}
             <tr>
@@ -30,6 +46,7 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
 
-    <a href="{{ path('app_questions_new') }}">Create new</a>
+    
 {% endblock %}
