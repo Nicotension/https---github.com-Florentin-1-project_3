@@ -38,7 +38,7 @@ class RegistrationController extends AbstractController
 
         $email = (new Email())
 
-        ->from('ijewerenicholas@gmail.com') 
+        ->from('userAddress@email.com') 
         ->to($user->getEmail())
         ->priority(Email::PRIORITY_HIGH)
         ->subject('Welcome email!')
