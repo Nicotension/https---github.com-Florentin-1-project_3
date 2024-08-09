@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use App\Entity\Product;
 use App\Entity\Discount;
+use App\Entity\Review;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DashboardController extends AbstractDashboardController
@@ -46,5 +47,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('User', 'fas fa-list', User::class);
         yield MenuItem::linkToCrud('Products', 'fas fa-box', Product::class);
         yield MenuItem::linkToCrud('Discounts', 'fas fa-percent', Discount::class);
+        yield MenuItem::linkToCrud('Reviews', 'fa fa-star', Review::class);
     }
 }
