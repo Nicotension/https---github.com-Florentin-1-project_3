@@ -18,7 +18,7 @@ class MailController extends AbstractController
     public function index(MailerInterface $mailer): Response
     {
         $email = (new Email())
-           ->from('ijewerenicholas@gmail.com')
+           ->from('userAddress@email.com')
            ->to('ijewerenicholas@gmail.com')
            ->priority(Email::PRIORITY_HIGH)
            ->subject('Time for Symfony Mailer!')
