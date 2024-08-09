@@ -1,65 +1,80 @@
-
 {% extends 'base.html.twig' %}
 
-{% block title %}Product{% endblock %}
+{% block title %}{{ product.name }}{% endblock %}
 
 {% block body %}
-    
+<div class="container mt-5">
 
+    <h1 class="mb-4">{{ product.name }}</h1>
 
-    <h1 class=" m-3">Product Catalog</h1>
+    <div class="row">
+        <!-- Product Image -->
+        <div class="col-md-6">
+            <img src="{{ asset('uploads/' ~ product.picture) }}" alt="{{ product.name }}" class="img-fluid">
+        </div>
 
-    {% if is_granted('ROLE_ADMIN') %}
-        <a class=" m-3 btn btn-primary" href="{{ path('app_product_new') }}">Create new</a>
-    {% endif %}
-	
-	
-	<div class="container text-center">
-    	
+        <!-- Product Details and Buttons -->
+        <div class="col-md-6">
+            <div class="product-details">
+                <p><strong>Price:</strong> {{ product.price }}</p>
+                <p><strong>Category:</strong> {{ product.category }}</p>
+                <p>{{ product.description }}</p>
 
-		<div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-gap-3 mt-5">
-        	
-            	<div class="col mb-3">
-                	<div class="card  index_card" style="width: 100%;">
-					
-                    	<img src="{{ asset('uploads/' ~ product.picture) }}" alt="{{ product.name }}" class="card-img-top" width="150">
-                    	<div class="card-body">
-							<h5 class="card-title">{{ product.name }}</h5>
-							<p class="card-text"> Price: {{ product.price }} </p>
-							<p class="card-text"> Category: {{ product.category }} </p>
-							<p class="card-text"> {{ product.description }} </p>
-						<div class="d-flex flex-column gap-1 ">
-							<div class="d-flex justify-content-evenly row-gap-1">
-							{% if is_granted('ROLE_ADMIN') %}
-									<a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary">Show</a>
-									<a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-primary">Edit</a> 
-									
-								{% endif %}
-							</div>
-								
-								
-							<div class="d-flex justify-content-evenly row-gap-1">
-							{% if is_granted('ROLE_USER') %}
-									<a href="{{ path('app_questions', {'id': product.id}) }}" class="btn btn-warning">Questions?</a>
-									
-									<a href="{{ path('app_reviews', {'id': product.id}) }}" class="btn btn-warning">Reviews</a>
-								{% endif %}
-								
-							</div>
-								
-								<a href="{{ path('app_orders', {'id': product.id}) }}" class="btn btn-success">Add to Cart</a>
-                        	</div>
+                <div class="d-flex flex-column gap-2">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary">Show</a>
+                        <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-primary">Edit</a>
+                        {{ include('product/_delete_form.html.twig') }}
+                    {% endif %}
 
-                    	</div>
-                	</div>
-            	</div>
-       
+                    {% if is_granted('ROLE_USER') %}
+                        <a href="{{ path('app_questions', {'id': product.id}) }}" class="btn btn-warning">Questions?</a>
+                        <a href="{{ path('app_reviews', {'id': product.id}) }}" class="btn btn-warning">Reviews</a>
+                    {% endif %}
+                    
+                    <a href="{{ path('app_orders', {'id': product.id}) }}" class="btn btn-success">Add to Cart</a>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- Reviews and Questions Cards -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Reviews
+                </div>
+                <div class="card-body">
+                    {% for review in reviews %}
+                        <p><strong>{{ review.user.Fname }} {{ review.user.Lname }}:</strong> {{ review.description }}</p>
+                        <hr>
+                    {% else %}
+                        <p>No reviews yet.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Questions
+                </div>
+                <div class="card-body">
+                    {% for question in questions %}
+                        <p><strong>{{ question.user.Fname }} {{ question.user.Lname }}:</strong> {{ question.question }}</p>
+                        <hr>
+                    {% else %}
+                        <p>No questions yet.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{{ path('app_product_index') }}" class="btn btn-secondary">Back to list</a>
+    </div>
+
 </div>
-
-    <a href="{{ path('app_product_index') }}">back to list</a>
-
-    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
-
-    {{ include('product/_delete_form.html.twig') }}
-{% endblock %} 
+{% endblock %}

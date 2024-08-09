@@ -14,10 +14,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route; // Use Annotation instead of Attribute for Symfony 5.4 and earlier
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\ReviewRepository;
+use App\Repository\QuestionsRepository;
 
 #[Route('/product')]
 class ProductController extends AbstractController
 {
+        
     private $doctrine;
 
     public function __construct(ManagerRegistry $doctrine)
@@ -69,11 +72,22 @@ class ProductController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
-    public function show(Product $product): Response
+    public function show(int $id, EntityManagerInterface $entityManager, ReviewRepository $reviewRepository, QuestionsRepository $questionsRepository): Response
     {
+        $product = $entityManager->getRepository(Product::class)->find($id);
+
+        if (!$product) {
+            throw $this->createNotFoundException('Product not found');
+        }
+
+        
+        $reviews = $reviewRepository->findBy(['product' => $product]);
+        $questions = $questionsRepository->findBy(['fk_product_id' => $product]);
+
         return $this->render('product/show.html.twig', [
             'product' => $product,
-            // 'status' => $product->getStatus(),
+            'reviews' => $reviews,
+            'questions' => $questions,
         ]);
     }
 

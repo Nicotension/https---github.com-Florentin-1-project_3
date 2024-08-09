@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\SecurityBundle\Security;
+use App\Entity\Product;
 
 
 #[Route('/review')]
@@ -42,18 +43,19 @@ class ReviewController extends AbstractController
         $review = new Review();
         $form = $this->createForm(ReviewType::class, $review);
         $form->handleRequest($request);
-    
+
+        // Fetch the Product entity
+        $product = $entityManager->getRepository(Product::class)->find($productId);
+
+        if (!$product) {
+            throw $this->createNotFoundException('Product not found');
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->security->getUser();
-            $product = $productRepository->find($productId);
-    
-            if (!$product) {
-                throw $this->createNotFoundException('Product not found');
-            }
-    
             $review->setUser($user);
-            $review->setProduct($product);
-    
+            $review->setProduct($product); // Set the Product entity on the Review
+
             $entityManager->persist($review);
             $entityManager->flush();
     

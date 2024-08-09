@@ -16,6 +16,15 @@ class QuestionsRepository extends ServiceEntityRepository
         parent::__construct($registry, Questions::class);
     }
 
+
+    public function findByProduct($product)
+    {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.fk_product_id = :product') 
+            ->setParameter('product', $product)
+            ->getQuery()
+            ->getResult();
+    }
     //    /**
     //     * @return Questions[] Returns an array of Questions objects
     //     */
