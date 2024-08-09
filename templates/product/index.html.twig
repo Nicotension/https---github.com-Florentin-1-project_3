@@ -29,6 +29,13 @@
   .card-footer .btn:last-child {
     margin-right: 0; 
   }
+  h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: rgb(232, 184, 36);
+    margin-top: 20px;
+    text-align: center;
+}
 </style>
 
 <h1>Product Catalog</h1>
@@ -51,8 +58,8 @@
                     </div>
                     <div class="card-footer">
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary">Show</a>
-                            <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-primary">Edit</a>
+                            
+                            <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-warning">Edit</a>
                         {% endif %}
                         {% if is_granted('ROLE_USER') %}
                             <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-warning">Show more</a>

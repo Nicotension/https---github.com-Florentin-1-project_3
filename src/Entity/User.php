@@ -235,4 +235,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         $this->bannedUntil = new \DateTime('+24 hours');
     }
+
+    public function __toString(): string
+    {
+        return $this->getEmail();
+    }
+    
 }
